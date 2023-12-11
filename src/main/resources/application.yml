@@ -1,0 +1,41 @@
+initializr:
+  group-id:
+    value: com.cleverpine
+  version:
+    value: 0.0.1-SNAPSHOT
+  javaVersions:
+    - id: 17
+      default: true
+  languages:
+    - name: Java
+      id: java
+      default: true
+  packagings:
+    - name: Jar
+      id: jar
+      default: true
+  bootVersions:
+    - name: 3.2.0
+      id: 3.2.0
+      default: true
+  dependencies:
+    - name: CleverPine
+      content:
+        - name: CleverPine Logging Library
+          id: cp-logging-library
+          groupId: com.cleverpine
+          artifactId: cp-logging-library
+          description: CleverPine Logging Library
+          mappings:
+            - version: 1.0.9
+              compatibilityRange: "3.1.5"
+          starter: false
+    - name: Spring framework
+      content:
+        - name: Spring AOP
+          id: aop
+          scope: provided
+          starter: false
+        - name: Log4j2
+          id: log4j2
+          starter: false
