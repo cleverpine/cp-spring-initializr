@@ -1,10 +1,11 @@
-package com.cleverpine.cpspringinitializr.customizer.maven;
+package com.cleverpine.cpspringinitializr.generator.customizer.maven.profile;
 
+import com.cleverpine.cpspringinitializr.generator.customizer.maven.MavenCustomizer;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.buildsystem.maven.MavenProfile;
-public class MavenProfileCustomizer extends MavenCustomizer {
+public class ProfileCustomizer extends MavenCustomizer {
 
-    public MavenProfileCustomizer(int order) {
+    public ProfileCustomizer(int order) {
         super(order);
     }
 

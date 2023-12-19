@@ -1,5 +1,6 @@
 io.spring.initializr.generator.project.ProjectGenerationConfiguration=\
-cpspringinitializr.config.InitializrConfiguration,\
-cpspringinitializr.config.InitializrGenerationConfiguration,\
-cpspringinitializr.config.InitializrMetadataConfiguration,\
-cpspringinitializr.config.InitializrMavenConfiguration
+com.cleverpine.cpspringinitializr.config.InitializrConfiguration,\
+com.cleverpine.cpspringinitializr.config.InitializrMetadataConfiguration,\
+com.cleverpine.cpspringinitializr.config.java.InitializrGenerationConfiguration,\
+com.cleverpine.cpspringinitializr.config.maven.InitializrMavenConfiguration,\
+com.cleverpine.cpspringinitializr.config.resources.InitializrResourcesConfiguration

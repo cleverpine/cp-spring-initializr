@@ -1,4 +1,4 @@
-package com.cleverpine.cpspringinitializr.generation.converter;
+package com.cleverpine.cpspringinitializr.generator.converter;
 
 import com.cleverpine.cpspringinitializr.model.CustomProjectDescription;
 import com.cleverpine.cpspringinitializr.model.ProjectInstructions;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -29,7 +30,9 @@ public class ProjectInstructionsToDescriptionConverter {
         var description = new CustomProjectDescription();
         var name = instructions.getName();
         var platformVersion = this.getDefaultSpringBootVersion(metadata);
-        var resolvedDependencies = this.getResolvedDependencies(instructions.getDependencies(), platformVersion, metadata);
+        var requestedDependencies = instructions.getDependencies();
+        this.addCPLoggingLibraryExtraDependencies(requestedDependencies);
+        var resolvedDependencies = this.getResolvedDependencies(requestedDependencies, platformVersion, metadata);
         var groupId = this.getDefaultGroupId(metadata);
 
         description.setName(name);
@@ -55,12 +58,27 @@ public class ProjectInstructionsToDescriptionConverter {
         return Version.parse(defaultSpringVersion);
     }
 
+    private void addCPLoggingLibraryExtraDependencies(List<String> dependencies) {
+        var shouldAdd = dependencies.stream()
+                .anyMatch(id -> id.equals("cp-logging-library"));
+        if (shouldAdd) {
+            dependencies.add("aop");
+            dependencies.add("log4j2");
+        }
+    }
+
     private List<Dependency> getResolvedDependencies(List<String> dependencies, Version platformVersion,
                                                      InitializrMetadata metadata) {
-        return dependencies.stream().map((it) -> {
-            var dependency = metadata.getDependencies().get(it);
-            return dependency.resolve(platformVersion);
-        }).collect(Collectors.toList());
+        return dependencies.stream()
+                .map((it) -> {
+                    var dependency = metadata.getDependencies().get(it);
+                    if (dependency == null) {
+                        return null;
+                    }
+                    return dependency.resolve(platformVersion);
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
     private BuildSystem getMavenBuildSystem() {

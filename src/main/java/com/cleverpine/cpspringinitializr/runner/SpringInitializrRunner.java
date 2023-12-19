@@ -1,13 +1,14 @@
 package com.cleverpine.cpspringinitializr.runner;
 
-import com.cleverpine.cpspringinitializr.generation.ProjectGenerationInvoker;
+import com.cleverpine.cpspringinitializr.generator.ProjectGenerationInvoker;
 import com.cleverpine.cpspringinitializr.model.ProjectInstructions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
@@ -17,23 +18,35 @@ public class SpringInitializrRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-//        var name = args.getOptionValues("name")
-//                .stream()
-//                .findFirst()
-//                .orElseThrow(() -> new IllegalArgumentException("Argument --name is required for the project name"));
-        //var name = UUID.randomUUID().toString();
-        var name = "mando";
         var projectInstructions = new ProjectInstructions();
-        projectInstructions.setName(name);
-        projectInstructions.setShouldIncludeApi(true);
-        var dependencies = List.of("cp-logging-library", "aop", "log4j2");
-        //projectInstructions.setDependencies(dependencies);
+        // TODO: Extraction & mapping should be a separate class
+        this.extractName(args, projectInstructions);
+        this.extractDependencies(args, projectInstructions);
+        this.extractApiOption(args, projectInstructions);
 
-        if (args.containsOption("dependencies")) {
-            //var dependencies = args.getOptionValues("dependencies");
-            projectInstructions.setDependencies(dependencies);
+        projectGenerationInvoker.invokeProjectGeneration(projectInstructions);
+    }
+
+    private void extractName(ApplicationArguments args, ProjectInstructions projectInstructions) {
+        if (!args.containsOption("name")) {
+            throw new IllegalArgumentException("Project name must be provided");
         }
+        args.getOptionValues("name")
+                .stream()
+                .filter(Objects::nonNull)
+                .findFirst()
+                .filter(value -> !value.isEmpty())
+                .ifPresent(projectInstructions::setName);
+    }
 
+    private void extractDependencies(ApplicationArguments args, ProjectInstructions projectInstructions) {
+        if (args.containsOption("dependencies")) {
+            var dependencies = args.getOptionValues("dependencies");
+            projectInstructions.setDependencies(new ArrayList<>(dependencies));
+        }
+    }
+
+    private void extractApiOption(ApplicationArguments args, ProjectInstructions projectInstructions) {
         if (args.containsOption("includeApi")) {
             var apiOption = args.getOptionValues("includeApi");
             boolean shouldIncludeApi = apiOption.stream()
@@ -42,7 +55,5 @@ public class SpringInitializrRunner implements ApplicationRunner {
                     .orElse(false);
             projectInstructions.setShouldIncludeApi(shouldIncludeApi);
         }
-
-        projectGenerationInvoker.invokeProjectGeneration(projectInstructions);
     }
 }

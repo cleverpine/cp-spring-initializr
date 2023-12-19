@@ -1,4 +1,4 @@
-package com.cleverpine.cpspringinitializr.generation.contributor;
+package com.cleverpine.cpspringinitializr.generator.contributor.resources;
 
 import io.spring.initializr.generator.project.contributor.SingleResourceProjectContributor;
 

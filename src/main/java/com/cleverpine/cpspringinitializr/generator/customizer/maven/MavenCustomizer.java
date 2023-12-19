@@ -1,4 +1,4 @@
-package com.cleverpine.cpspringinitializr.customizer.maven;
+package com.cleverpine.cpspringinitializr.generator.customizer.maven;
 
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;

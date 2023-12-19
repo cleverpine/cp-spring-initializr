@@ -1,5 +1,6 @@
-package com.cleverpine.cpspringinitializr.customizer.maven;
+package com.cleverpine.cpspringinitializr.generator.customizer.maven.plugin;
 
+import com.cleverpine.cpspringinitializr.generator.customizer.maven.MavenCustomizer;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.buildsystem.maven.MavenPlugin;
 
@@ -25,5 +26,4 @@ public class MavenCompilerPluginCustomizer extends MavenCustomizer {
         builder.add("source", "${java.version}");
         builder.add("target", "${java.version}");
     }
-
 }

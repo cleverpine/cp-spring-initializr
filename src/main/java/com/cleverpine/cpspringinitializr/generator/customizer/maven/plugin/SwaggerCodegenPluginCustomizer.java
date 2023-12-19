@@ -1,14 +1,15 @@
-package com.cleverpine.cpspringinitializr.customizer.maven;
+package com.cleverpine.cpspringinitializr.generator.customizer.maven.plugin;
 
+import com.cleverpine.cpspringinitializr.generator.customizer.maven.MavenCustomizer;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.buildsystem.maven.MavenPlugin;
 import io.spring.initializr.generator.project.ProjectDescription;
 
-public class MavenSwaggerCodegenPluginCustomizer extends MavenCustomizer {
+public class SwaggerCodegenPluginCustomizer extends MavenCustomizer {
 
     private final ProjectDescription projectDescription;
 
-    public MavenSwaggerCodegenPluginCustomizer(int order, ProjectDescription projectDescription) {
+    public SwaggerCodegenPluginCustomizer(int order, ProjectDescription projectDescription) {
         super(order);
         this.projectDescription = projectDescription;
     }

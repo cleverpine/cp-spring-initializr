@@ -1,6 +1,6 @@
-package com.cleverpine.cpspringinitializr.generation;
+package com.cleverpine.cpspringinitializr.generator;
 
-import com.cleverpine.cpspringinitializr.generation.converter.ProjectInstructionsToDescriptionConverter;
+import com.cleverpine.cpspringinitializr.generator.converter.ProjectInstructionsToDescriptionConverter;
 import com.cleverpine.cpspringinitializr.model.ProjectInstructions;
 import io.spring.initializr.generator.project.DefaultProjectAssetGenerator;
 import io.spring.initializr.generator.project.ProjectAssetGenerator;
