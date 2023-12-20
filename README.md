@@ -11,7 +11,7 @@ CP-Spring-Initializr is a versatile tool for creating ready-to-use Spring Boot p
     - `includeApi`
 
 ## Prerequisites
-- Java JDK 17
+- Java 21
 - Spring Boot 3.2.0
 
 ## Installation and Setup
