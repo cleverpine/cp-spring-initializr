@@ -17,7 +17,7 @@ public class InitializrConfiguration {
     @ConditionalOnMissingBean(ProjectDirectoryFactory.class)
     public ProjectDirectoryFactory projectDirectoryFactory() {
         // TODO: extract path value to properties and make it configurable -> implement 'ProjectDirectoryFactory' interface in a class
-        return (description) -> Files.createDirectories(Path.of("tmp"));
+        return (description) -> Files.createDirectories(Path.of(""));
     }
 
     @Bean

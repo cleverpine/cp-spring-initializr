@@ -31,12 +31,13 @@ public class SpringInitializrRunner implements ApplicationRunner {
         if (!args.containsOption("name")) {
             throw new IllegalArgumentException("Project name must be provided");
         }
-        args.getOptionValues("name")
+        var name = args.getOptionValues("name")
                 .stream()
                 .filter(Objects::nonNull)
                 .findFirst()
                 .filter(value -> !value.isEmpty())
-                .ifPresent(projectInstructions::setName);
+                .orElseThrow(() -> new IllegalArgumentException("Project name must be provided1"));
+        projectInstructions.setName(name);
     }
 
     private void extractDependencies(ApplicationArguments args, ProjectInstructions projectInstructions) {
