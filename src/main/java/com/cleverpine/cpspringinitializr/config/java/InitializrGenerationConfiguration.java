@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Bean;
 
 import java.lang.reflect.Modifier;
 
+import static com.cleverpine.cpspringinitializr.logging.TerminalLogger.log;
+
 @ProjectGenerationConfiguration
 public class InitializrGenerationConfiguration {
 
@@ -27,6 +29,7 @@ public class InitializrGenerationConfiguration {
             javaTypeDeclaration.annotations().add(ClassName.of("com.cleverpine.springlogginglibrary.aop.EnableCPLogging"));
             javaTypeDeclaration.annotations().add(ClassName.of("org.springframework.context.annotation.ComponentScan"),
                     (annotation) -> annotation.add("basePackages", "com.cleverpine.springlogginglibrary.*", basePackage));
+            log("{} file added to project", javaTypeDeclaration.getName());
         };
     }
 

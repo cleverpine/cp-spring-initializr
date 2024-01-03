@@ -5,6 +5,8 @@ import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.buildsystem.maven.MavenPlugin;
 import io.spring.initializr.generator.project.ProjectDescription;
 
+import static com.cleverpine.cpspringinitializr.logging.TerminalLogger.log;
+
 public class SwaggerCodegenPluginCustomizer extends MavenCustomizer {
 
     private final ProjectDescription projectDescription;
@@ -17,6 +19,7 @@ public class SwaggerCodegenPluginCustomizer extends MavenCustomizer {
     @Override
     public void customize(MavenBuild build) {
         this.addBuildPlugin(build);
+        log("[swagger-codegen-maven-plugin] added to pom.xml file");
     }
 
     private void addBuildPlugin(MavenBuild build) {

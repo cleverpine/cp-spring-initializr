@@ -8,6 +8,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 @Component
@@ -42,7 +43,8 @@ public class SpringInitializrRunner implements ApplicationRunner {
 
     private void extractDependencies(ApplicationArguments args, ProjectInstructions projectInstructions) {
         if (args.containsOption("dependencies")) {
-            var dependencies = args.getOptionValues("dependencies");
+            var dependenciesArgs = args.getOptionValues("dependencies").get(0).split(",");
+            var dependencies = Arrays.asList(dependenciesArgs);
             projectInstructions.setDependencies(new ArrayList<>(dependencies));
         }
     }
