@@ -1,4 +1,4 @@
-# CP-Spring-Initializr
+# CP-Spring-Initializr v0.0.2
 
 ## Introduction
 CP-Spring-Initializr is a versatile tool for creating ready-to-use Spring Boot projects. Tailor your new project by specifying its name, required dependencies, and whether to include API support, all through simple command-line arguments.
@@ -23,6 +23,7 @@ CP-Spring-Initializr is a versatile tool for creating ready-to-use Spring Boot p
 - `name`: Defines the name of your new Spring Boot project. This name will be used as the base directory name and in the project metadata.
 - `dependencies`: A comma-separated list of Maven dependency IDs to be included in your project's `pom.xml`.
 - `includeApi`: A boolean flag (`true` or `false`). When set to `true`, it adds the `swagger-codegen-maven-plugin` to your project.
+- `verbose`: A boolean flag (`true` or `false`). When set to `true`, it prints out stack traces and other debugging information.
 
 ## Usage
 Run the application, passing desired arguments: `java -jar <application-jar-file> --name=<project_name> --dependencies=<dependency1,dependency2> --includeApi=<true/false>`
