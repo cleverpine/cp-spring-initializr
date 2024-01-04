@@ -18,6 +18,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static com.cleverpine.cpspringinitializr.logging.TerminalLogger.logError;
+import static com.cleverpine.cpspringinitializr.logging.TerminalLogger.logMajorStep;
+import static com.cleverpine.cpspringinitializr.logging.TerminalLogger.log;
+
 @Component
 public class ProjectInstructionsToDescriptionConverter {
 
@@ -67,14 +71,16 @@ public class ProjectInstructionsToDescriptionConverter {
         }
     }
 
-    private List<Dependency> getResolvedDependencies(List<String> dependencies, Version platformVersion,
-                                                     InitializrMetadata metadata) {
+    private List<Dependency> getResolvedDependencies(List<String> dependencies, Version platformVersion, InitializrMetadata metadata) {
+        logMajorStep("Resolving maven dependencies...");
         return dependencies.stream()
                 .map((it) -> {
                     var dependency = metadata.getDependencies().get(it);
                     if (dependency == null) {
+                        logError("[{}] skipped, not supported", it);
                         return null;
                     }
+                    log("[{}] resolved", it);
                     return dependency.resolve(platformVersion);
                 })
                 .filter(Objects::nonNull)

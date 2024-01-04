@@ -8,7 +8,10 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
+
+import static com.cleverpine.cpspringinitializr.logging.TerminalLogger.logError;
 
 @Component
 @RequiredArgsConstructor
@@ -24,7 +27,17 @@ public class SpringInitializrRunner implements ApplicationRunner {
         this.extractDependencies(args, projectInstructions);
         this.extractApiOption(args, projectInstructions);
 
-        projectGenerationInvoker.invokeProjectGeneration(projectInstructions);
+        try {
+            projectGenerationInvoker.invokeProjectGeneration(projectInstructions);
+        } catch (Exception exception) {
+            var isVerboseEnabled = this.extractVerboseOption(args);
+            if (isVerboseEnabled) {
+                exception.printStackTrace();
+            } else {
+                logError(exception.getMessage());
+            }
+            System.exit(1);
+        }
     }
 
     private void extractName(ApplicationArguments args, ProjectInstructions projectInstructions) {
@@ -42,7 +55,15 @@ public class SpringInitializrRunner implements ApplicationRunner {
 
     private void extractDependencies(ApplicationArguments args, ProjectInstructions projectInstructions) {
         if (args.containsOption("dependencies")) {
-            var dependencies = args.getOptionValues("dependencies");
+            var dependenciesArgs = args.getOptionValues("dependencies")
+                    .stream()
+                    .findFirst()
+                    .orElse("");
+            if (dependenciesArgs.isEmpty()) {
+                return;
+            }
+            var dependenciesArray = dependenciesArgs.split(",");
+            var dependencies = Arrays.asList(dependenciesArray);
             projectInstructions.setDependencies(new ArrayList<>(dependencies));
         }
     }
@@ -56,5 +77,16 @@ public class SpringInitializrRunner implements ApplicationRunner {
                     .orElse(false);
             projectInstructions.setShouldIncludeApi(shouldIncludeApi);
         }
+    }
+
+    private boolean extractVerboseOption(ApplicationArguments args) {
+        if (!args.containsOption("verbose")) {
+            return false;
+        }
+        return args.getOptionValues("verbose")
+                .stream()
+                .map(Boolean::parseBoolean)
+                .findFirst()
+                .orElse(false);
     }
 }

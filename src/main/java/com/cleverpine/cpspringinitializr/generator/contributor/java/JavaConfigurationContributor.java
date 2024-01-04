@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
+import static com.cleverpine.cpspringinitializr.logging.TerminalLogger.logMajorStep;
+
 @RequiredArgsConstructor
 public class JavaConfigurationContributor implements ProjectContributor {
 
@@ -25,6 +27,7 @@ public class JavaConfigurationContributor implements ProjectContributor {
 
     @Override
     public void contribute(Path projectRoot) throws IOException {
+        logMajorStep("Generating Java Configurations...");
         // TODO: Refactor this class to be reusable for other types of configuration classes/dependencies
         var applicationName = "CPLoggingConfig";
         var packageName = projectDescription.getPackageName() + ".config";

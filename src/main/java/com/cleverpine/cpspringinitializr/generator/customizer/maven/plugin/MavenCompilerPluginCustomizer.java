@@ -4,6 +4,9 @@ import com.cleverpine.cpspringinitializr.generator.customizer.maven.MavenCustomi
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.buildsystem.maven.MavenPlugin;
 
+import static com.cleverpine.cpspringinitializr.logging.TerminalLogger.log;
+import static com.cleverpine.cpspringinitializr.logging.TerminalLogger.logMajorStep;
+
 public class MavenCompilerPluginCustomizer extends MavenCustomizer {
 
     public MavenCompilerPluginCustomizer(int order) {
@@ -12,7 +15,10 @@ public class MavenCompilerPluginCustomizer extends MavenCustomizer {
 
     @Override
     public void customize(MavenBuild build) {
+        // TODO: logging the 'majorStep' here is a work around, think of a way to fix it
+        logMajorStep("Customizing pom.xml file...");
         build.plugins().add("org.apache.maven.plugins", "maven-compiler-plugin", this::addPluginMetadata);
+        log("[maven-compiler-plugin] added to pom.xml file");
     }
 
     private void addPluginMetadata(MavenPlugin.Builder builder) {
