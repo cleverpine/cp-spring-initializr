@@ -27,7 +27,6 @@ public class SpringInitializrRunner implements ApplicationRunner {
         this.extractDependencies(args, projectInstructions);
         this.extractApiOption(args, projectInstructions);
 
-
         try {
             projectGenerationInvoker.invokeProjectGeneration(projectInstructions);
         } catch (Exception exception) {
