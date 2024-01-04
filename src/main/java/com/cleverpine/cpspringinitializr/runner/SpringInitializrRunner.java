@@ -27,16 +27,17 @@ public class SpringInitializrRunner implements ApplicationRunner {
         this.extractDependencies(args, projectInstructions);
         this.extractApiOption(args, projectInstructions);
 
+
         try {
             projectGenerationInvoker.invokeProjectGeneration(projectInstructions);
         } catch (Exception exception) {
             var isVerboseEnabled = this.extractVerboseOption(args);
             if (isVerboseEnabled) {
                 exception.printStackTrace();
-                System.exit(1);
             } else {
                 logError(exception.getMessage());
             }
+            System.exit(1);
         }
     }
 
