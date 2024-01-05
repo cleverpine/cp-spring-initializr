@@ -1,3 +1,9 @@
+spring:
+  main:
+    banner-mode: off
+  output:
+    ansi:
+      enabled: always
 initializr:
   group-id:
     value: com.cleverpine
