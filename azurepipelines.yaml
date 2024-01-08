@@ -7,43 +7,50 @@ pool:
 variables:
   javaVersion: '17'
   mavenVersion: '3.8.4'
+  projectName: 'CP-Spring-Initializr'
+  goals: 'initialize release:clean release:prepare --batch-mode release:perform -Pcloud'
+  jobDisplayName: 'Maven release plugin'
 
 steps:
-# - task: JavaToolInstaller@0
-#   inputs:
-#     versionSpec: '$(javaVersion)'
-#     jdkArchitectureOption: 'x64'
-#     jdkSourceOption: 'PreInstalled'
-
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
     mavenVersionOption: 'Path'
     mavenDirectory: '/usr/share/maven/$(mavenVersion)'
-    goals: 'clean install'
+    goals: 'clean package'
     publishJUnitResults: false
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
 
-- task: CopyFiles@2
+- task: DownloadSecureFile@1
+  name: key
+  displayName: 'Download GPG'
   inputs:
-    Contents: '**/*.jar'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
-- task: PublishBuildArtifacts@1
+    secureFile: 'key.asc'
+- task: CmdLine@2
+  displayName: Import gpg
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+    script: |
+      gpg --import $(key.secureFilePath)      
 
+- task: DownloadSecureFile@1
+  name: settings
+  displayName: 'Download settings.xml'
+  inputs:
+    secureFile: 'settings.xml'
+  
 - task: Maven@3
+  displayName: $(jobDisplayName)
   inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'deploy'
+    mavenPomFile: 'lib/pom.xml'
+    goals: $(goals)
+    options: '--settings $(settings.secureFilePath) -Duser_name=$(username) -Duser_password=$(System.AccessToken)'
     publishJUnitResults: false
     javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    mavenAuthenticateFeed: true
+    jdkVersionOption: '1.17'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
     sonarQubeRunAnalysis: false
