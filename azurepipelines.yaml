@@ -12,17 +12,9 @@ variables:
   jobDisplayName: 'Maven release plugin'
 
 steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenVersionOption: 'Path'
-    mavenDirectory: '/usr/share/maven/$(mavenVersion)'
-    goals: 'clean package'
-    publishJUnitResults: false
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
+- checkout: self
+  clean: true
+  persistCredentials: true
 
 - task: DownloadSecureFile@1
   name: key
