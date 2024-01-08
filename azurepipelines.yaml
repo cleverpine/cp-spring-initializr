@@ -1,0 +1,49 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  javaVersion: '17'
+  mavenVersion: '3.8.4'
+
+steps:
+# - task: JavaToolInstaller@0
+#   inputs:
+#     versionSpec: '$(javaVersion)'
+#     jdkArchitectureOption: 'x64'
+#     jdkSourceOption: 'PreInstalled'
+
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenVersionOption: 'Path'
+    mavenDirectory: '/usr/share/maven/$(mavenVersion)'
+    goals: 'clean install'
+    publishJUnitResults: false
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+
+- task: CopyFiles@2
+  inputs:
+    Contents: '**/*.jar'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'deploy'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    mavenAuthenticateFeed: true
+    sonarQubeRunAnalysis: false
