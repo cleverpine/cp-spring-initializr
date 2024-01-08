@@ -60,7 +60,7 @@ steps:
     gitHubConnection: 'github-dobry-serviceconnection'
     repositoryName: 'cleverpine/cp-spring-initializr'
     action: 'create'
-    tagSource: 'manual'
+    tagSource: 'userSpecifiedTag'
     tag: '$(version)' # or a specific tag like 'v1.0'
     releaseTitle: 'Release $(tag)'
     assets: |
