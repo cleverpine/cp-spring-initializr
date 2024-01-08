@@ -57,7 +57,7 @@ steps:
 
 - task: GitHubRelease@1
   inputs:
-    gitHubConnection: cleverpine
+    gitHubConnection: cleverpine-JavaLibs
     repositoryName: 'cleverpine/cp-spring-initializr'
     action: 'create'
     tagSource: 'manual'
