@@ -57,7 +57,7 @@ steps:
 
 - task: GitHubRelease@1
   inputs:
-    gitHubConnection: 2ddbb085-c491-4627-9c07-4f499fc51c4e
+    gitHubConnection: cleverpine
     repositoryName: 'cleverpine/cp-spring-initializr'
     action: 'create'
     tagSource: 'manual'
