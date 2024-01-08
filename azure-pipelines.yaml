@@ -57,8 +57,8 @@ steps:
 
 - task: GitHubRelease@0
   inputs:
-    gitHubConnection: 'YourGitHubServiceConnection'
-    repositoryName: 'your-username/your-repo'
+    gitHubConnection: 'cleverpine (1)'
+    repositoryName: 'cleverpine/cp-spring-initializr'
     action: 'create'
     tagSource: 'manual'
     tag: '$(version)' # or a specific tag like 'v1.0'
