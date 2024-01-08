@@ -56,7 +56,7 @@ steps:
     sonarQubeRunAnalysis: false
 
 - script: |
-    ls -la
+    find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
   displayName: 'List files in working directory'
 
 
