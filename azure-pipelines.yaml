@@ -69,7 +69,7 @@ steps:
     tag: '$(version)' # or a specific tag like 'v1.0'
     releaseTitle: 'Release $(tag)'
     assets: |
-      $(Build.ArtifactStagingDirectory)/target/cp-spring-initializr-*.jar
+      $(Build.ArtifactStagingDirectory)/*.jar
       $(Build.ArtifactStagingDirectory)/*.zip
     assetUploadMode: 'delete'
     isDraft: false
