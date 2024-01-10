@@ -36,6 +36,7 @@ public class ProjectInstructionsToDescriptionConverter {
         var platformVersion = this.getDefaultSpringBootVersion(metadata);
         var requestedDependencies = instructions.getDependencies();
         this.addCPLoggingLibraryExtraDependencies(requestedDependencies);
+        this.addCPViravaSpringHelperExtraDependencies(requestedDependencies);
         var resolvedDependencies = this.getResolvedDependencies(requestedDependencies, platformVersion, metadata);
         var groupId = this.getDefaultGroupId(metadata);
 
@@ -68,6 +69,15 @@ public class ProjectInstructionsToDescriptionConverter {
         if (shouldAdd) {
             dependencies.add("aop");
             dependencies.add("log4j2");
+        }
+    }
+
+    private void addCPViravaSpringHelperExtraDependencies(List<String> dependencies) {
+        var shouldAdd = dependencies.stream()
+                .anyMatch(id -> id.equals("cp-virava-spring-helper"));
+        if (shouldAdd) {
+            dependencies.add("web");
+            dependencies.add("security");
         }
     }
 
