@@ -63,7 +63,7 @@ steps:
     action: 'create'
     tagSource: 'userSpecifiedTag'
     tag: '$(version)' # or a specific tag like 'v1.0'
-    title: '$tag'
+    title: '$(tag)'
     assets: |
       $(System.DefaultWorkingDirectory)/target/*.jar
       $(Build.ArtifactStagingDirectory)/*.zip
