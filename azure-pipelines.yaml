@@ -63,7 +63,7 @@ steps:
     action: 'create'
     tagSource: 'userSpecifiedTag'
     tag: '$(version)' # or a specific tag like 'v1.0'
-    releaseTitle: 'Release $(tag)'
+    title: '$tag'
     assets: |
       $(System.DefaultWorkingDirectory)/target/*.jar
       $(Build.ArtifactStagingDirectory)/*.zip
@@ -71,5 +71,5 @@ steps:
     isDraft: false
     isPreRelease: false
     releaseNotesSource: 'inline'
-    releaseNotes: 'Release notes for version $(tag)'
+    changeLogType: issueBased
 
