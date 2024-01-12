@@ -58,12 +58,12 @@ steps:
 
 - task: GitHubRelease@1
   inputs:
-    gitHubConnection: 'github-dobry-serviceconnection'
+    gitHubConnection: 'cleverpine-github-serviceaccount'
     repositoryName: 'cleverpine/cp-spring-initializr'
     action: 'create'
     tagSource: 'userSpecifiedTag'
     tag: '$(version)' # or a specific tag like 'v1.0'
-    releaseTitle: 'Release $(tag)'
+    title: '$(version)'
     assets: |
       $(System.DefaultWorkingDirectory)/target/*.jar
       $(Build.ArtifactStagingDirectory)/*.zip
@@ -71,5 +71,5 @@ steps:
     isDraft: false
     isPreRelease: false
     releaseNotesSource: 'inline'
-    releaseNotes: 'Release notes for version $(tag)'
+    changeLogType: issueBased
 
