@@ -1,5 +1,6 @@
 package com.cleverpine.cpspringinitializr.factory;
 
+import com.cleverpine.cpspringinitializr.generator.YamlRepresenter;
 import com.cleverpine.cpspringinitializr.model.yml.YamlConfiguration;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.TypeDescription;
@@ -24,7 +25,7 @@ public class YamlFactory {
     }
 
     private Representer createRepresenter(DumperOptions dumperOptions) {
-        var representer = new Representer(dumperOptions);
+        var representer = new YamlRepresenter(dumperOptions);
         var type = new TypeDescription(YamlConfiguration.class, Tag.MAP);
         representer.addTypeDescription(type);
         return representer;

@@ -1,6 +1,7 @@
 package com.cleverpine.cpspringinitializr.model.yml;
 
 import com.cleverpine.cpspringinitializr.model.yml.spring.SpringProperty;
+import com.cleverpine.cpspringinitializr.model.yml.virava.ViravaProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +10,10 @@ import lombok.Setter;
 public class YamlConfiguration {
 
     private SpringProperty spring;
+    private ViravaProperty auth;
 
     public YamlConfiguration() {
         this.spring = new SpringProperty();
+        this.auth = null;
     }
 }

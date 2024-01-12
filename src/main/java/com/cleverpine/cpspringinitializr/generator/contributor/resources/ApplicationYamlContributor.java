@@ -5,6 +5,6 @@ import io.spring.initializr.generator.project.contributor.SingleResourceProjectC
 public class ApplicationYamlContributor extends SingleResourceProjectContributor {
 
     public ApplicationYamlContributor() {
-        super("src/main/resources/application.yml", "classpath:configuration/application.yml");
+        super("src/main/resources/application.yml", "classpath:configuration/resources/application.yml");
     }
 }
