@@ -26,7 +26,7 @@ public class ProfileCustomizer extends MavenCustomizer {
 
     private void addProfileProperties(MavenProfile profile) {
         profile.properties()
-                .property("api.specification.authorization", "<!-- TODO: Insert your authorization token here! -->")
-                .property("api.query.specification.url", "<-- TODO: Insert your API specification URL here! -->");
+                .property("api.query.specification.url", "../${project.artifactId}-api/${project.artifactId}-api.yml")
+                .property("api.specification.authorization", "<!-- TODO: Insert your authorization token here! -->");
     }
 }
