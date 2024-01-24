@@ -3,6 +3,7 @@ package com.cleverpine.cpspringinitializr.config.resources;
 import com.cleverpine.cpspringinitializr.generator.contributor.resources.ApplicationYamlContributor;
 import com.cleverpine.cpspringinitializr.generator.contributor.resources.YamlPropertiesContributor;
 import com.cleverpine.cpspringinitializr.generator.customizer.yml.YamlPropertiesCustomizer;
+import com.cleverpine.cpspringinitializr.model.yml.logging.LoggingProperty;
 import com.cleverpine.cpspringinitializr.model.yml.virava.ViravaProperty;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectDescription;
@@ -46,6 +47,20 @@ public class InitializrResourcesConfiguration {
         return (yamlConfiguration, applicationName) -> {
             yamlConfiguration.setAuth(new ViravaProperty());
             log("[auth] property added to file");
+        };
+    }
+
+    @Bean
+    @ConditionalOnBean(ProjectDescription.class)
+    @ConditionalOnRequestedDependency("cp-logging-library")
+    public YamlPropertiesCustomizer loggingPropertyCustomizer() {
+        return (yamlConfiguration, applicationName) -> {
+            yamlConfiguration.setLogging(new LoggingProperty());
+            yamlConfiguration
+                    .getLogging()
+                    .getLevel()
+                    .setRoot("INFO");
+            log("[logging] property added to file");
         };
     }
 }

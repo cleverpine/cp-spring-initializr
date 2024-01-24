@@ -1,4 +1,4 @@
-package com.cleverpine.{applicationName}.config;
+package com.cleverpine.{applicationName}.config.virava;
 
 import com.cleverpine.{applicationName}.auth.roles.Resources;
 import com.cleverpine.{applicationName}.auth.roles.Roles;
