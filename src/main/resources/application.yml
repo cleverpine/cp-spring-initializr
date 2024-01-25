@@ -45,6 +45,24 @@ initializr:
               - version: 3.1.3
                 compatibilityRange: "3.1.5"
           starter: false
+        - name: CleverPine JPA Specification Resolver
+          id: cp-jpa-specification-resolver
+          groupId: com.cleverpine
+          artifactId: cp-jpa-specification-resolver
+          description: CleverPine JPA Specification Resolver
+          mappings:
+              - version: 1.0.0
+                compatibilityRange: "3.1.5"
+          starter: false
+        - name: CleverPine Spring Error util
+          id: cp-spring-error-util
+          groupId: com.cleverpine
+          artifactId: cp-spring-error-util
+          description: CleverPine Spring Error util
+          mappings:
+              - version: 2.0.1
+                compatibilityRange: "3.1.5"
+          starter: false
     - name: Spring framework
       content:
         - name: Spring AOP

@@ -14,8 +14,14 @@ public class InitializrGenerationConfiguration {
 
     @Bean
     @ConditionalOnBean(ProjectDescription.class)
-    public JavaConfigurationContributor asd(ProjectDescription projectDescription, ObjectProvider<JavaConfigurationSupplier> suppliers) {
+    public JavaConfigurationContributor javaConfigurationContributor(ProjectDescription projectDescription, ObjectProvider<JavaConfigurationSupplier> suppliers) {
         return new JavaConfigurationContributor("src/main/java/com/cleverpine/", projectDescription, suppliers);
+    }
+
+    @Bean
+    @ConditionalOnBean(ProjectDescription.class)
+    public JavaConfigurationSupplier configurationSupplier() {
+        return () -> "classpath:configuration/java/base";
     }
 
     @Bean
@@ -30,5 +36,19 @@ public class InitializrGenerationConfiguration {
     @ConditionalOnRequestedDependency("cp-logging-library")
     public JavaConfigurationSupplier loggingConfigurationSupplier() {
         return () -> "classpath:configuration/java/logging";
+    }
+
+    @Bean
+    @ConditionalOnBean(ProjectDescription.class)
+    @ConditionalOnRequestedDependency("cp-jpa-specification-resolver")
+    public JavaConfigurationSupplier jpaSpecificationConfigurationSupplier() {
+        return () -> "classpath:configuration/java/jpaspecification";
+    }
+
+    @Bean
+    @ConditionalOnBean(ProjectDescription.class)
+    @ConditionalOnRequestedDependency("cp-spring-error-util")
+    public JavaConfigurationSupplier errorUtilConfigurationSupplier() {
+        return () -> "classpath:configuration/java/errorutil";
     }
 }

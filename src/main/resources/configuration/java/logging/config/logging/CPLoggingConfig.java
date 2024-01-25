@@ -1,4 +1,4 @@
-package com.cleverpine.{applicationName}.config;
+package com.cleverpine.{applicationName}.config.logging;
 
 import com.cleverpine.springlogginglibrary.aop.EnableCPLogging;
 import org.springframework.context.annotation.ComponentScan;
