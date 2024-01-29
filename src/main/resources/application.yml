@@ -67,13 +67,39 @@ initializr:
       content:
         - name: Spring AOP
           id: aop
+          description: Aspect-Oriented Programming with Spring AOP and AspectJ.
           scope: provided
           starter: false
         - name: Log4j2
           id: log4j2
+          description: Log4j2 logging framework.
           starter: false
-        - name: Security Config
-          id: spring-security-config
-          groupId: org.springframework.security
-          artifactId: spring-security-config
+        - name: Web
+          id: web
+          description: Servlet web application with Spring MVC and Tomcat
+          starter: false
+        - name: Spring Security
+          id: security
+          description: Highly customizable authentication and access-control framework for Spring applications.
+          starter: false
+    - name: Developer Tools
+      content:
+        - name: Lombok
+          id: lombok
+          groupId: org.projectlombok
+          artifactId: lombok
+          scope: annotationProcessor
+          description: Java annotation library which helps to reduce boilerplate code.
+          mappings:
+            - version: 1.18.30
+              compatibilityRange: "3.1.5"
+          starter: false
+        - name: Jackson databind
+          id: jackson-databind
+          groupId: com.fasterxml.jackson.core
+          artifactId: jackson-databind
+          description: Core Jackson processing abstractions (aka Streaming API), implementation for JSON
+          mappings:
+            - version: 2.16.1
+              compatibilityRange: "3.1.5"
           starter: false
