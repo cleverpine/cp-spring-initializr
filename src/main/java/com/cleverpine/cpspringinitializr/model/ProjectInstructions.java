@@ -17,8 +17,4 @@ public class ProjectInstructions {
     private String name;
     private List<String> dependencies = new ArrayList<>();
     private boolean shouldIncludeApi;
-
-    public void addDependency(String dependency) {
-        this.dependencies.add(dependency);
-    }
 }

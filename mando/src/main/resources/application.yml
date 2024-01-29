@@ -1,0 +1,11 @@
+auth:
+  token:
+    jwkSetUrl: 'TODO: replace with your jwk set url'
+    rolesPath: 'TODO: replace with your roles path'
+    usernamePath: 'TODO: replace with your username path'
+logging:
+  level:
+    root: INFO
+spring:
+  application:
+    name: mando
