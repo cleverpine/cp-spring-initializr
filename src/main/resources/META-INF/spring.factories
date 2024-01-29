@@ -3,4 +3,5 @@ com.cleverpine.cpspringinitializr.config.InitializrConfiguration,\
 com.cleverpine.cpspringinitializr.config.InitializrMetadataConfiguration,\
 com.cleverpine.cpspringinitializr.config.java.InitializrGenerationConfiguration,\
 com.cleverpine.cpspringinitializr.config.maven.InitializrMavenConfiguration,\
-com.cleverpine.cpspringinitializr.config.resources.InitializrResourcesConfiguration
+com.cleverpine.cpspringinitializr.config.resources.InitializrResourcesConfiguration,\
+com.cleverpine.cpspringinitializr.config.instruction.ProjectInstructionsConfig

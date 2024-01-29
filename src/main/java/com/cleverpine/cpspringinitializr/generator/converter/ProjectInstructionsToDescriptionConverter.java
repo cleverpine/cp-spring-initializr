@@ -35,8 +35,6 @@ public class ProjectInstructionsToDescriptionConverter {
         var name = instructions.getName();
         var platformVersion = this.getDefaultSpringBootVersion(metadata);
         var requestedDependencies = instructions.getDependencies();
-        this.addCPLoggingLibraryExtraDependencies(requestedDependencies);
-        this.addCPViravaSpringHelperExtraDependencies(requestedDependencies);
         var resolvedDependencies = this.getResolvedDependencies(requestedDependencies, platformVersion, metadata);
         var groupId = this.getDefaultGroupId(metadata);
 
@@ -61,29 +59,6 @@ public class ProjectInstructionsToDescriptionConverter {
     private Version getDefaultSpringBootVersion(InitializrMetadata metadata) {
         var defaultSpringVersion = metadata.getBootVersions().getDefault().getId();
         return Version.parse(defaultSpringVersion);
-    }
-
-    private void addCPLoggingLibraryExtraDependencies(List<String> dependencies) {
-        var shouldAdd = dependencies.stream()
-                .anyMatch(id -> id.equals("cp-logging-library"));
-        if (shouldAdd) {
-            dependencies.add("aop");
-            dependencies.add("log4j2");
-        }
-    }
-
-    /**
-     * Add extra dependencies for 'cp-virava-spring-helper' library.
-     * The 'cp-virava-spring-helper' propagates 'spring-security-core' module, but not 'spring-security-config'.
-     * The 'spring-security-config' module is required for the project configuration, as a custom 'OncePerRequestFilter' is registered
-     * in the 'HttpSecurity' class
-     */
-    private void addCPViravaSpringHelperExtraDependencies(List<String> dependencies) {
-        var shouldAdd = dependencies.stream()
-                .anyMatch(id -> id.equals("cp-virava-spring-helper"));
-        if (shouldAdd) {
-            dependencies.add("spring-security-config");
-        }
     }
 
     private List<Dependency> getResolvedDependencies(List<String> dependencies, Version platformVersion, InitializrMetadata metadata) {
