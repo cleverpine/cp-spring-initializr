@@ -1,7 +1,7 @@
 package com.cleverpine.cpspringinitializr.runner;
 
 import com.cleverpine.cpspringinitializr.generator.ProjectGenerationInvoker;
-import com.cleverpine.cpspringinitializr.generator.ProjectInstructionsGenerator;
+import com.cleverpine.cpspringinitializr.model.ProjectInstructions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -17,8 +17,6 @@ import static com.cleverpine.cpspringinitializr.logging.TerminalLogger.logError;
 @Component
 @RequiredArgsConstructor
 public class SpringInitializrRunner implements ApplicationRunner {
-
-    private final ProjectInstructionsGenerator projectInstructionsGenerator;
     private final ProjectGenerationInvoker projectGenerationInvoker;
 
     @Override
@@ -28,7 +26,7 @@ public class SpringInitializrRunner implements ApplicationRunner {
         var dependencies = this.extractDependencies(args);
         var shouldIncludeApi = this.extractApiOption(args);
 
-        var projectInstructions = projectInstructionsGenerator.generateInstructions(name, dependencies, shouldIncludeApi);
+        var projectInstructions = new ProjectInstructions(name, dependencies, shouldIncludeApi);
 
         try {
             projectGenerationInvoker.invokeProjectGeneration(projectInstructions);

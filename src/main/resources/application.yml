@@ -28,7 +28,6 @@ initializr:
     - name: CleverPine
       content:
         - name: CleverPine Logging Library
-          test: test
           id: cp-logging-library
           groupId: com.cleverpine
           artifactId: cp-logging-library
@@ -78,6 +77,10 @@ initializr:
         - name: Web
           id: web
           description: Servlet web application with Spring MVC and Tomcat
+          starter: false
+        - name: Spring Security
+          id: security
+          description: Highly customizable authentication and access-control framework for Spring applications.
           starter: false
     - name: Developer Tools
       content:

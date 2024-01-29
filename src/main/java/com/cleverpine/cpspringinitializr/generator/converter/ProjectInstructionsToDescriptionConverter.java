@@ -35,6 +35,7 @@ public class ProjectInstructionsToDescriptionConverter {
         var name = instructions.getName();
         var platformVersion = this.getDefaultSpringBootVersion(metadata);
         var requestedDependencies = instructions.getDependencies();
+        this.customizeRequestedDependencies(requestedDependencies);
         var resolvedDependencies = this.getResolvedDependencies(requestedDependencies, platformVersion, metadata);
         var groupId = this.getDefaultGroupId(metadata);
 
@@ -54,6 +55,31 @@ public class ProjectInstructionsToDescriptionConverter {
         description.setShouldIncludeApi(instructions.isShouldIncludeApi());
 
         return description;
+    }
+
+    private void customizeRequestedDependencies(List<String> requestedDependencies) {
+        this.addDefaultDependencies(requestedDependencies);
+        if (requestedDependencies.contains("cp-logging-library")) {
+            this.addCPLoggingExtraDependencies(requestedDependencies);
+        }
+        if (requestedDependencies.contains("cp-virava-spring-helper")) {
+            this.addCPViravaSpringHelperExtraDependencies(requestedDependencies);
+        }
+    }
+
+    private void addDefaultDependencies(List<String> requestedDependencies) {
+        requestedDependencies.add("web");
+        requestedDependencies.add("lombok");
+        requestedDependencies.add("jackson-databind");
+    }
+
+    private void addCPLoggingExtraDependencies(List<String> requestedDependencies) {
+        requestedDependencies.add("aop");
+        requestedDependencies.add("log4j2");
+    }
+
+    private void addCPViravaSpringHelperExtraDependencies(List<String> requestedDependencies) {
+        requestedDependencies.add("security");
     }
 
     private Version getDefaultSpringBootVersion(InitializrMetadata metadata) {
