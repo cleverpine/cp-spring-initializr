@@ -1,4 +1,4 @@
-# CP-Spring-Initializr v0.0.8
+# CP-Spring-Initializr v0.0.9
 
 ## Introduction
 CP-Spring-Initializr is a versatile tool for creating ready-to-use Spring Boot projects. Tailor your new project by specifying its name, required dependencies, and whether to include API support, all through simple command-line arguments.
@@ -6,9 +6,9 @@ CP-Spring-Initializr is a versatile tool for creating ready-to-use Spring Boot p
 ## Features
 - Automated Spring Boot project setup
 - Customizable project configurations through arguments:
-    - `name`
-    - `dependencies`
-    - `includeApi`
+  - `name`
+  - `dependencies`
+  - `includeApi`
 
 ## Prerequisites
 - Java JDK 17
@@ -26,4 +26,7 @@ CP-Spring-Initializr is a versatile tool for creating ready-to-use Spring Boot p
 - `verbose`: A boolean flag (`true` or `false`). When set to `true`, it prints out stack traces and other debugging information.
 
 ## Usage
-Run the application, passing desired arguments: `java -jar <application-jar-file> --name=<project_name> --dependencies=<dependency1,dependency2> --includeApi=<true/false>`
+Run the application, passing desired arguments:
+```bash
+java -jar <application-jar-file> --name=<project_name> --dependencies=<dependency1,dependency2> --includeApi=<true/false> --verbose=<true/false>
+```

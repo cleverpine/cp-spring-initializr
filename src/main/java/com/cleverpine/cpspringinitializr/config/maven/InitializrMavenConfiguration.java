@@ -1,6 +1,7 @@
 package com.cleverpine.cpspringinitializr.config.maven;
 
 import com.cleverpine.cpspringinitializr.condition.ConditionalOnApiOption;
+import com.cleverpine.cpspringinitializr.generator.customizer.maven.dependency.AnnotationProcessorExclusionBuildCustomizer;
 import com.cleverpine.cpspringinitializr.generator.customizer.maven.dependency.StarterLoggingExclusionCustomizer;
 import com.cleverpine.cpspringinitializr.generator.customizer.maven.plugin.MavenCompilerPluginCustomizer;
 import com.cleverpine.cpspringinitializr.generator.customizer.maven.plugin.SwaggerCodegenPluginCustomizer;
@@ -8,6 +9,7 @@ import com.cleverpine.cpspringinitializr.generator.customizer.maven.profile.Prof
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
+import io.spring.initializr.metadata.InitializrMetadata;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 
@@ -39,5 +41,10 @@ public class InitializrMavenConfiguration {
     public StarterLoggingExclusionCustomizer starterLoggingExclusionCustomizer() {
         // TODO: Not a fan of 'StarterLoggingExclusionCustomizer' implementation, rethink it
         return new StarterLoggingExclusionCustomizer(4);
+    }
+
+    @Bean
+    public AnnotationProcessorExclusionBuildCustomizer annotationProcessorExclusionBuildCustomizer(InitializrMetadata metadata) {
+        return new AnnotationProcessorExclusionBuildCustomizer(5, metadata);
     }
 }
