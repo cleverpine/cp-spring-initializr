@@ -26,7 +26,7 @@ import static com.cleverpine.cpspringinitializr.logging.TerminalLogger.logMajorS
 public class ProjectInstructionsToDescriptionConverter {
 
     private static final String MAIN_CLASS_APPLICATION_SUFFIX = "Application";
-    private static final String HYPHEN_DELIMITER = "-";
+    public static final String HYPHEN_DELIMITER = "-";
     private static final String PERIOD_DELIMITER = ".";
 
     public ProjectDescription convertWithDefaultMetadata(ProjectInstructions instructions, InitializrMetadata metadata) {

@@ -15,6 +15,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+
+import static com.cleverpine.cpspringinitializr.generator.converter.ProjectInstructionsToDescriptionConverter.HYPHEN_DELIMITER;
 import static com.cleverpine.cpspringinitializr.logging.TerminalLogger.log;
 import static com.cleverpine.cpspringinitializr.logging.TerminalLogger.logMajorStep;
 
@@ -47,7 +49,7 @@ public class JavaConfigurationContributor implements ProjectContributor {
                 var output = targetPath.resolve(filename);
                 Files.createDirectories(output.getParent());
                 var content = new String(Files.readAllBytes(Paths.get(resource.getURI())));
-                content = content.replace("{applicationName}", applicationName);
+                content = content.replace("{applicationName}", applicationName.replaceAll(HYPHEN_DELIMITER, ""));
                 Files.write(output, content.getBytes());
                 log("{} file added to project", resource.getFilename());
             }

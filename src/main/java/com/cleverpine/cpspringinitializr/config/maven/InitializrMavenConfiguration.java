@@ -4,6 +4,7 @@ import com.cleverpine.cpspringinitializr.condition.ConditionalOnApiOption;
 import com.cleverpine.cpspringinitializr.generator.customizer.maven.dependency.AnnotationProcessorExclusionBuildCustomizer;
 import com.cleverpine.cpspringinitializr.generator.customizer.maven.dependency.StarterLoggingExclusionCustomizer;
 import com.cleverpine.cpspringinitializr.generator.customizer.maven.plugin.MavenCompilerPluginCustomizer;
+import com.cleverpine.cpspringinitializr.generator.customizer.maven.plugin.OpenApiMavenGeneratorPluginCustomizer;
 import com.cleverpine.cpspringinitializr.generator.customizer.maven.plugin.SwaggerCodegenPluginCustomizer;
 import com.cleverpine.cpspringinitializr.generator.customizer.maven.profile.ProfileCustomizer;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
@@ -24,8 +25,8 @@ public class InitializrMavenConfiguration {
     @Bean
     @ConditionalOnBean(ProjectDescription.class)
     @ConditionalOnApiOption
-    public SwaggerCodegenPluginCustomizer swaggerCodegenPluginCustomizer(ProjectDescription projectDescription) {
-        return new SwaggerCodegenPluginCustomizer(2, projectDescription);
+    public OpenApiMavenGeneratorPluginCustomizer openApiMavenGeneratorPluginCustomizer(ProjectDescription projectDescription) {
+        return new OpenApiMavenGeneratorPluginCustomizer(2, projectDescription);
     }
 
     @Bean
