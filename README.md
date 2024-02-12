@@ -1,4 +1,4 @@
-# CP-Spring-Initializr v0.0.9
+# CP-Spring-Initializr v0.0.10
 
 ## Introduction
 CP-Spring-Initializr is a versatile tool for creating ready-to-use Spring Boot projects. Tailor your new project by specifying its name, required dependencies, and whether to include API support, all through simple command-line arguments.
