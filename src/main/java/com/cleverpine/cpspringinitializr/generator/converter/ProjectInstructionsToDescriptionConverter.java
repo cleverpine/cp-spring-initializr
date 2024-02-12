@@ -1,5 +1,6 @@
 package com.cleverpine.cpspringinitializr.generator.converter;
 
+import com.cleverpine.cpspringinitializr.generator.customizer.maven.plugin.OpenApiMavenGeneratorPluginCustomizer;
 import com.cleverpine.cpspringinitializr.model.CustomProjectDescription;
 import com.cleverpine.cpspringinitializr.model.ProjectInstructions;
 import io.spring.initializr.generator.buildsystem.BuildSystem;
@@ -26,16 +27,18 @@ import static com.cleverpine.cpspringinitializr.logging.TerminalLogger.logMajorS
 public class ProjectInstructionsToDescriptionConverter {
 
     private static final String MAIN_CLASS_APPLICATION_SUFFIX = "Application";
-    private static final String HYPHEN_DELIMITER = "-";
+    public static final String HYPHEN_DELIMITER = "-";
     private static final String PERIOD_DELIMITER = ".";
 
     public ProjectDescription convertWithDefaultMetadata(ProjectInstructions instructions, InitializrMetadata metadata) {
         // TODO: add validations if necessary -> see 'DefaultProjectRequestToDescriptionConverter' in 'initializr-web' module
+        var shouldIncludeApi = instructions.isShouldIncludeApi();
+
         var description = new CustomProjectDescription();
         var name = instructions.getName();
         var platformVersion = this.getDefaultSpringBootVersion(metadata);
         var requestedDependencies = instructions.getDependencies();
-        this.customizeRequestedDependencies(requestedDependencies);
+        this.customizeRequestedDependencies(requestedDependencies, shouldIncludeApi);
         var resolvedDependencies = this.getResolvedDependencies(requestedDependencies, platformVersion, metadata);
         var groupId = this.getDefaultGroupId(metadata);
 
@@ -52,12 +55,12 @@ public class ProjectInstructionsToDescriptionConverter {
         description.setBaseDirectory(name);
         resolvedDependencies.forEach((dependency) -> description.addDependency(dependency.getId(),
                 MetadataBuildItemMapper.toDependency(dependency)));
-        description.setShouldIncludeApi(instructions.isShouldIncludeApi());
+        description.setShouldIncludeApi(shouldIncludeApi);
 
         return description;
     }
 
-    private void customizeRequestedDependencies(List<String> requestedDependencies) {
+    private void customizeRequestedDependencies(List<String> requestedDependencies, boolean shouldIncludeApi) {
         this.addDefaultDependencies(requestedDependencies);
         if (requestedDependencies.contains("cp-logging-library")) {
             this.addCPLoggingExtraDependencies(requestedDependencies);
@@ -65,12 +68,16 @@ public class ProjectInstructionsToDescriptionConverter {
         if (requestedDependencies.contains("cp-virava-spring-helper")) {
             this.addCPViravaSpringHelperExtraDependencies(requestedDependencies);
         }
+
+        if(shouldIncludeApi) {
+            requestedDependencies.add(OpenApiMavenGeneratorPluginCustomizer.OPENAPI_GENERATOR_MAVEN_PLUGIN_ARTIFACT);
+        }
     }
 
     private void addDefaultDependencies(List<String> requestedDependencies) {
         requestedDependencies.add("web");
         requestedDependencies.add("lombok");
-        requestedDependencies.add("jackson-databind");
+        requestedDependencies.add("jackson-databind-nullable");
     }
 
     private void addCPLoggingExtraDependencies(List<String> requestedDependencies) {

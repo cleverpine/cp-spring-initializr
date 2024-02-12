@@ -95,11 +95,20 @@ initializr:
               compatibilityRange: "3.1.5"
           starter: false
         - name: Jackson databind
-          id: jackson-databind
-          groupId: com.fasterxml.jackson.core
-          artifactId: jackson-databind
-          description: Core Jackson processing abstractions (aka Streaming API), implementation for JSON
+          id: jackson-databind-nullable
+          groupId: org.openapitools
+          artifactId: jackson-databind-nullable
+          description: JsonNullable wrapper class and Jackson module to support fields with meaningful null values.
           mappings:
-            - version: 2.16.1
+            - version: 0.2.6
+              compatibilityRange: "3.1.5"
+          starter: false
+        - name: OpenAPI Codegen Plugin
+          id: openapi-generator-maven-plugin
+          groupId: org.openapitools
+          artifactId: openapi-generator-maven-plugin
+          description: OpenAPI Codegen Plugin
+          mappings:
+            - version: 7.2.0
               compatibilityRange: "3.1.5"
           starter: false
