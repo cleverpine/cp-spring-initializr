@@ -10,6 +10,8 @@ import static com.cleverpine.cpspringinitializr.logging.TerminalLogger.log;
 
 public class OpenApiMavenGeneratorPluginCustomizer extends MavenCustomizer {
 
+    public static final String OPENAPI_GENERATOR_MAVEN_PLUGIN_ARTIFACT = "openapi-generator-maven-plugin";
+    public static final String OPENAPI_GENERATOR_MAVEN_PLUGIN_GROUPID = "org.openapitools";
     private final ProjectDescription projectDescription;
 
     public OpenApiMavenGeneratorPluginCustomizer(int order, ProjectDescription projectDescription) {
@@ -20,11 +22,11 @@ public class OpenApiMavenGeneratorPluginCustomizer extends MavenCustomizer {
     @Override
     public void customize(MavenBuild build) {
         this.addBuildPlugin(build);
-        log("[swagger-codegen-maven-plugin] added to pom.xml file");
+        log("[{}] added to pom.xml file", OPENAPI_GENERATOR_MAVEN_PLUGIN_ARTIFACT);
     }
 
     private void addBuildPlugin(MavenBuild build) {
-        build.plugins().add("org.openapitools", "openapi-generator-maven-plugin", this::addPluginMetadata);
+        build.plugins().add(OPENAPI_GENERATOR_MAVEN_PLUGIN_GROUPID, OPENAPI_GENERATOR_MAVEN_PLUGIN_ARTIFACT, this::addPluginMetadata);
     }
 
     private void addPluginMetadata(MavenPlugin.Builder builder) {
