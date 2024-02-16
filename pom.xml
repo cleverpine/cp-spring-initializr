@@ -11,7 +11,7 @@
 
     <groupId>com.cleverpine</groupId>
     <artifactId>cp-spring-initializr</artifactId>
-    <version>0.0.10</version>
+    <version>0.0.11</version>
     <name>cp-spring-initializr</name>
     <description>CleverPine Spring-initializr application</description>
 
