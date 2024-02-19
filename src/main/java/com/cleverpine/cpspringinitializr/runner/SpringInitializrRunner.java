@@ -61,7 +61,7 @@ public class SpringInitializrRunner implements ApplicationRunner {
                     .findFirst()
                     .orElse("");
             if (!dependenciesArgs.isEmpty()) {
-                var dependenciesArray = dependenciesArgs.split(",");
+                var dependenciesArray = dependenciesArgs.replace(" ", "").split(",");
                 dependencies = new ArrayList<>(Arrays.asList(dependenciesArray));
             }
         }
